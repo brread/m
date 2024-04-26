@@ -283,6 +283,8 @@ Cheat.build("https://krunker.zip/stable/source", {
                     };
                 }
 
+                this.controls.update(500);
+
                 // triggerbot
 
                 if (!this.settings.triggerbot) break;
