@@ -180,7 +180,7 @@ Cheat.build("https://krunker.zip/stable/source", {
     init() {
         this.settings = { 
             fovAimbot: true, 
-            aimbotFov: 85,
+            aimbotFov: 20,
             triggerbot: true,
             smoothSpeed: 10
         };
@@ -283,7 +283,7 @@ Cheat.build("https://krunker.zip/stable/source", {
                     };
                 }
 
-                this.controls.update(500 / this.settings.smoothSpeed);
+                this.controls.update(100 / this.settings.smoothSpeed);
                 
                 // triggerbot
 
