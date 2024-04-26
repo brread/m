@@ -271,8 +271,8 @@ Cheat.build("https://krunker.zip/stable/source", {
                 }
 
                 this.controls.target = {
-                    xD: dir.x,
-                    yD: dir.y
+                    xD: dir.x / 1000,
+                    yD: dir.y / 1000
                 }
 
                 if (this.settings.fovAimbot) {
