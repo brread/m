@@ -277,13 +277,13 @@ Cheat.build("https://krunker.zip/stable/source", {
 
                 if (this.settings.fovAimbot) {
                     if (distanceToCenter > (this.settings.aimbotFov / this.scale)) {
-                        this.controls.update(500);
-
+                        this.controls.update(100 / this.settings.smoothSpeed);
+                        
                         break;
                     };
                 }
-
-                this.controls.update(100 / this.settings.smoothSpeed);
+                
+                this.controls.update(325);
                 
                 // triggerbot
 
