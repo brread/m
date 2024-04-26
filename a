@@ -279,7 +279,7 @@ Cheat.build("https://krunker.zip/stable/source", {
                     if (distanceToCenter > (this.settings.aimbotFov / this.scale)) {
                         this.controls.update(500 / this.settings.smoothSpeed);
 
-                        continue;
+                        break;
                     };
                 }
 
