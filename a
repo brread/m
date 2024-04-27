@@ -184,10 +184,10 @@ Cheat.build("https://krunker.zip/stable/source", {
             triggerbot: true,
             triggerbotFov: 2.5,
             triggerbotDelay: 125, // milliseconds
-            smoothSpeed: 25
+            smoothSpeed: 15
         };
 
-        this.state = { canShoot: true, pressedKeys: new Set() };
+        this.state = { canShoot: true, pressedKeys: new Set(), shootIn /* how many MS delay from now to shoot */: 0 };
 
         window.addEventListener("keydown", event => this.state.pressedKeys.add(event.key.toLowerCase()));
         window.addEventListener("keyup", event => this.state.pressedKeys.delete(event.key.toLowerCase()));
@@ -234,6 +234,14 @@ Cheat.build("https://krunker.zip/stable/source", {
         this.controls.target = null;
 
         if (input[keyEnum.scope] || this.me.weapon.noAim) {
+            // handle any delayed shots
+            if (this.state._initShootTime !== false && performance.now() - this.state._initShootTime > this.settings.triggerbotDelay) {
+                input[keyEnum.shoot] = true;
+
+                this.settings.shootIn = 0;
+                this.state._initShootTime = false;
+            }
+            
             const enemies = this.game.players.list.filter(player => {
                 return (
                     !player.isYou &&
@@ -279,7 +287,7 @@ Cheat.build("https://krunker.zip/stable/source", {
 
                 if (this.settings.fovAimbot) {
                     if (distanceToCenter > (this.settings.aimbotFov / this.scale)) {
-                        this.controls.update(125 / this.settings.smoothSpeed);
+                        this.controls.update(150 / this.settings.smoothSpeed);
                         
                         break;
                     };
@@ -295,15 +303,11 @@ Cheat.build("https://krunker.zip/stable/source", {
 
                 if (this.me.aimVal !== 0) break;
 
-                setTimeout(() => {
-                    if (this.me.didShoot) {
-                        input[keyEnum.shoot] = 0;
-                        this.state.canShoot = false;
-    
-                        setTimeout(() => (this.state.canShoot = true), 0.9 * this.me.weapon.rate * (this.me.isKranked ? this.game.mode.bonuses.firerate : 1));
-                    } else if (this.state.canShoot)
-                        input[keyEnum.shoot] = 1;
+                setTimeout(() => { // delay the shot
+                    this.state.shootIn = this.settings.triggerbotDelay;
                 }, this.settings.triggerbotDelay);
+
+                this.state._initShootTime = performance.now();
 
                 break;
             }
