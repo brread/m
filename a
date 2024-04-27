@@ -189,7 +189,7 @@ Cheat.build("https://krunker.zip/stable/source", {
             smoothSpeed: 17.5
         };
 
-        this.state = { canShoot: true, pressedKeys: new Set(), canDelayShot: true, delayedShots: [], isTriggerbotting: false };
+        this.state = { pressedKeys: new Set(), canShoot: true, canDelayShot: true, delayedShots: [], isLockedOn: false };
 
         window.addEventListener("keydown", event => this.state.pressedKeys.add(event.key.toLowerCase()));
         window.addEventListener("keyup", event => this.state.pressedKeys.delete(event.key.toLowerCase()));
@@ -229,27 +229,34 @@ Cheat.build("https://krunker.zip/stable/source", {
             
             if (this.controls.keys[this.controls.binds.jump.val])
             this.controls.didPressed[this.controls.binds.jump.val] = 1;
-    }
-    
-    // fov aimbot
-    
-    this.controls.target = null;
-    
-    
-    if (input[keyEnum.scope] || this.me.weapon.noAim) {
-        // handle any delayed shots
-        for (const shotTime of this.state.delayedShots) {
-            if (performance.now() - shotTime > this.settings.triggerbotDelay) {
-                this.state.isTriggerbotting = true;
-                
-                this.state.delayedShots.shift();
-                
-                break;
-            }
+        }
+        
+        // fov aimbot
+        
+        this.controls.target = null;
+        
+        
+        if (input[keyEnum.scope] || this.me.weapon.noAim) {
+            // handle any delayed shots
+            for (const shotTime of this.state.delayedShots) {
+                if (performance.now() - shotTime > this.settings.triggerbotDelay) {
+                    this.state.isTriggerbotting = true;
+                    
+                    this.state.delayedShots.shift();
+                    
+                    break;
+                }
             }
             
-            if (this.state.isTriggerbotting)
-            input[keyEnum.shoot] = 1;
+            if (this.state.isTriggerbotting) {
+                if (this.me.didShoot) {
+                    input[keyEnum.shoot] = 0;
+                    this.state.canShoot = false;
+
+                    setTimeout(() => (this.state.canShoot = true), this.me.weapon.rate * (this.me.isKranked ? this.game.mode.bonuses.firerate : 1));
+                } else if (this.state.canShoot)
+                    input[keyEnum.shoot] = 1;
+            }
 
             const triggerbotState = this.state.isTriggerbotting;
             this.state.isTriggerbotting = false;
@@ -319,7 +326,7 @@ Cheat.build("https://krunker.zip/stable/source", {
 
                     this.state.delayedShots.push(performance.now());
                     
-                    setTimeout(() => (this.state.canDelayShot = true, console.log("hello")), 0.95 * this.me.weapon.rate * (this.me.isKranked ? this.game.mode.bonuses.firerate : 1));
+                    setTimeout(() => (this.state.canDelayShot = true), 0.95 * this.me.weapon.rate * (this.me.isKranked ? this.game.mode.bonuses.firerate : 1));
                 }
 
                 this.state.isTriggerbotting = triggerbotState;
