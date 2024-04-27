@@ -185,8 +185,8 @@ Cheat.build("https://krunker.zip/stable/source", {
             aimbotFov: 40,
             triggerbot: true,
             triggerbotFov: 30,
-            triggerbotDelay: 20, // milliseconds
-            smoothSpeed: 15
+            triggerbotDelay: 10, // milliseconds
+            smoothSpeed: 17.5
         };
 
         this.state = { canShoot: true, pressedKeys: new Set(), canDelayShot: true, delayedShots: [], isTriggerbotting: false };
@@ -319,7 +319,7 @@ Cheat.build("https://krunker.zip/stable/source", {
 
                     this.state.delayedShots.push(performance.now());
                     
-                    setTimeout(() => (this.state.canDelayShot = true), 0.95 * this.me.weapon.rate * (this.me.isKranked ? this.game.mode.bonuses.firerate : 1));
+                    setTimeout(() => (this.state.canDelayShot = true, console.log("hello")), 0.95 * this.me.weapon.rate * (this.me.isKranked ? this.game.mode.bonuses.firerate : 1));
                 }
 
                 this.state.isTriggerbotting = triggerbotState;
