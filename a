@@ -182,7 +182,7 @@ Cheat.build("https://krunker.zip/stable/source", {
             fovAimbot: true, 
             aimbotFov: 35,
             triggerbot: true,
-            triggerbotFov: 4,
+            triggerbotFov: 10,
             triggerbotDelay: 50, // milliseconds
             smoothSpeed: 25
         };
@@ -242,12 +242,6 @@ Cheat.build("https://krunker.zip/stable/source", {
                     this.state.delayedShots.shift();
                     break;
                 }
-            }
-
-            if (this.state.delayedShotTime !== false && (performance.now() - this.state.delayedShotTime > this.settings.triggerbotDelay)) {
-                input[keyEnum.shoot] = true;
-
-                this.state.delayedShotTime = false;
             }
 
             const enemies = this.game.players.list.filter(player => {
