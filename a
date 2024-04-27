@@ -182,9 +182,9 @@ Cheat.build("https://krunker.zip/stable/source", {
             fovAimbot: true, 
             aimbotFov: 45,
             triggerbot: true,
-            triggerbotFov: 6,
-            triggerbotDelay: 75, // milliseconds
-            smoothSpeed: 15
+            triggerbotFov: 2.5,
+            triggerbotDelay: 125, // milliseconds
+            smoothSpeed: 25
         };
 
         this.state = { canShoot: true, pressedKeys: new Set() };
