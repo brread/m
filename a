@@ -239,18 +239,19 @@ Cheat.build("https://krunker.zip/stable/source", {
         
         this.controls.target = null;
         
+        const triggerbotState = this.state.isLockedOn;
+        this.state.isLockedOn = false;
+
+        let foundEnemy = false;
         
         if (this.settings.autoAim && input[keyEnum.scope] || this.me.weapon.noAim) {
-            const triggerbotState = this.state.isTriggerbotting;
-            this.state.isTriggerbotting = false;
-
             if (!input[keyEnum.scope])
                 input[keyEnum.scope] = true;
 
             // handle any delayed shots
             for (const shotTime of this.state.delayedShots) {
                 if (performance.now() - shotTime > this.settings.triggerbotDelay) {
-                    this.state.isTriggerbotting = true;
+                    this.state.isLockedOn = true;
                     
                     this.state.delayedShots.shift();
                     
@@ -258,7 +259,7 @@ Cheat.build("https://krunker.zip/stable/source", {
                 }
             }
             
-            if (this.state.isTriggerbotting) {
+            if (this.state.isLockedOn) {
                 if (this.me.didShoot) {
                     input[keyEnum.shoot] = 0;
                     this.state.canShoot = false;
@@ -335,12 +336,15 @@ Cheat.build("https://krunker.zip/stable/source", {
                     setTimeout(() => (this.state.canDelayShot = true), 0.95 * this.me.weapon.rate * (this.me.isKranked ? this.game.mode.bonuses.firerate : 1));
                 }
 
-                this.state.isTriggerbotting = triggerbotState;
-                
+                foundEnemy = true;
+
                 break;
             }
-        } else { this.state.isTriggerbotting = false; }
-
+        }
+        
+        if (foundEnemy)
+            this.state.isLockedOn = triggerbotState;
+        
         return input;
     },
 
