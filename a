@@ -241,6 +241,8 @@ Cheat.build("https://krunker.zip/stable/source", {
 
                     this.state.delayedShots.shift();
 
+                    console.log(this.state.delayedShots);
+
                     break;
                 }
             }
