@@ -187,7 +187,7 @@ Cheat.build("https://krunker.zip/stable/source", {
             smoothSpeed: 10
         };
 
-        this.state = { canShoot: true, pressedKeys: new Set(), canDelayShot: false, delayedShots: [] };
+        this.state = { canShoot: true, pressedKeys: new Set(), canDelayShot: true, delayedShots: [] };
 
         window.addEventListener("keydown", event => this.state.pressedKeys.add(event.key.toLowerCase()));
         window.addEventListener("keyup", event => this.state.pressedKeys.delete(event.key.toLowerCase()));
