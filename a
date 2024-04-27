@@ -189,6 +189,7 @@ Cheat.build("https://krunker.zip/stable/source", {
             triggerbotDelay: 15, // milliseconds
             smoothSpeed: 22.5,
             boxEsp: true,
+            boxEspColor: "#f00",
             nametags: true
         };
 
