@@ -285,8 +285,6 @@ Cheat.build("https://krunker.zip/stable/source", {
                 
                 const pos = new this.three.Vector3(enemy.x, enemy.y, enemy.z);
 
-                if (!this.containsPoint(pos)) continue;
-
                 const headScreenPos = this.world2Screen(pos.clone(), width, height, enemy.height);
                 
                 const screenCenter = {
@@ -367,13 +365,12 @@ Cheat.build("https://krunker.zip/stable/source", {
             const pos = new this.three.Vector3(enemy.x, enemy.y, enemy.z);
             
             if (enemy.health <= 0 || !enemy.active) continue;
-            if (!this.containsPoint(pos)) continue;
     
             const top = this.world2Screen(pos.clone(), width, height, enemy.height + 1);
             const bottom = this.world2Screen(pos.clone(), width, height);
 
             const rectHeight = Math.round(bottom.y - top.y);
-            const rectWidth = Math.round(rectHeight * 0.65);
+            const rectWidth = Math.round(rectHeight * 0.7);
 
             if (this.settings.boxEsp) {
                 this.ctx.lineWidth = Math.min(1 + rectWidth / 30, 2);
@@ -385,7 +382,6 @@ Cheat.build("https://krunker.zip/stable/source", {
             if (!this.settings.nametags) continue;
 
             if (enemy.canBSeen) continue;
-
 
             this.ctx.font = "Arial 36px";
             this.ctx.textAlign = "center";
@@ -409,6 +405,9 @@ Cheat.build("https://krunker.zip/stable/source", {
 
         pos.x *= width;
         pos.y *= height;
+
+        pos.x *= ((this.containsPoint(pos) * 2) = 1);
+        pos.y *= ((this.containsPoint(pos) * 2) = 1);
 
         return pos;
     },
