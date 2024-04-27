@@ -182,6 +182,7 @@ Cheat.build("https://krunker.zip/stable/source", {
             fovAimbot: true, 
             aimbotFov: 45,
             triggerbot: true,
+            triggerbotFov: 5,
             smoothSpeed: 20
         };
 
@@ -283,9 +284,11 @@ Cheat.build("https://krunker.zip/stable/source", {
                     };
                 }
                 
-                this.controls.update(325);
+                this.controls.update(500);
                 
                 // triggerbot
+
+                if (distanceToCenter < this.settings.triggerbotFov);
 
                 if (!this.settings.triggerbot) break;
 
