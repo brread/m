@@ -187,7 +187,7 @@ Cheat.build("https://krunker.zip/stable/source", {
             smoothSpeed: 25
         };
 
-        this.state = { canShoot: true, pressedKeys: new Set(), delayingShot: false, delayedShotTime: 0 };
+        this.state = { canShoot: true, pressedKeys: new Set(), canDelayShot: false, delayedShots: [] };
 
         window.addEventListener("keydown", event => this.state.pressedKeys.add(event.key.toLowerCase()));
         window.addEventListener("keyup", event => this.state.pressedKeys.delete(event.key.toLowerCase()));
@@ -235,10 +235,19 @@ Cheat.build("https://krunker.zip/stable/source", {
 
         if (input[keyEnum.scope] || this.me.weapon.noAim) {
             // handle any delayed shots
-            if (this.state.delayingShot && (performance.now() - this.state.delayedShotTime > this.settings.triggerbotDelay)) {
+            for (const shotTime of this.state.delayedShots) {
+                if (performance.now() - shotTime > this.settings.triggerbotDelay) {
+                    input[keyEnum.shoot] = true;
+
+                    this.state.delayedShots.shift();
+                    break;
+                }
+            }
+
+            if (this.state.delayedShotTime !== false && (performance.now() - this.state.delayedShotTime > this.settings.triggerbotDelay)) {
                 input[keyEnum.shoot] = true;
 
-                this.state.delayingShot = false;
+                this.state.delayedShotTime = false;
             }
 
             const enemies = this.game.players.list.filter(player => {
@@ -300,8 +309,13 @@ Cheat.build("https://krunker.zip/stable/source", {
                 if (distanceToCenter > this.settings.triggerbotFov) break;
                 if (!this.me.weapon.noAim && this.me.aimVal !== 0) break;
 
-                this.state.delayingShot = true;
-                this.state.delayedShotTime = performance.now();
+                if (this.state.canDelayShot) {
+                    this.state.canDelayShot = false;
+
+                    this.state.delayedShots.push(performance.now());
+                }
+
+                setTimeout(() => (this.state.canDelayShot), 0.9 * this.me.weapon.rate * (this.me.isKranked ? this.game.mode.bonuses.firerate : 1));
                 
                 break;
             }
