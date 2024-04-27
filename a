@@ -183,7 +183,7 @@ Cheat.build("https://krunker.zip/stable/source", {
             aimbotFov: 40,
             triggerbot: true,
             triggerbotFov: 30,
-            triggerbotDelay: 29, // milliseconds
+            triggerbotDelay: 20, // milliseconds
             smoothSpeed: 12.5
         };
 
@@ -335,10 +335,10 @@ Cheat.build("https://krunker.zip/stable/source", {
 
         // aimbot fov circle
 
-        // this.ctx.strokeStyle = "#fff";
-        // this.ctx.beginPath()
-        // this.ctx.arc(width / 2, height / 2, this.settings.aimbotFov / this.scale, 0, 2 * Math.PI);
-        // this.ctx.stroke();
+        this.ctx.strokeStyle = "#fff";
+        this.ctx.beginPath()
+        this.ctx.arc(width / 2, height / 2, this.settings.aimbotFov / this.scale, 0, 2 * Math.PI);
+        this.ctx.stroke();
 
         // esp + nametag
 
