@@ -20,20 +20,22 @@ window.Cheat = class Cheat {
     }
 
     static async build(...args) {
-        await (() => {
-            let done;
-        
-            const promise = new Promise(res => (done = res));
-        
-            const observer = new MutationObserver(() => {
-                if (document.documentElement)
-                    done();
-            });
-        
-            observer.observe(document, { childList: true });
-        
-            return promise;
-        })();
+        if (!document.documentElement) {
+            await (() => {
+                let done;
+            
+                const promise = new Promise(res => (done = res));
+            
+                const observer = new MutationObserver(() => {
+                    if (document.documentElement)
+                        done();
+                });
+            
+                observer.observe(document, { childList: true });
+            
+                return promise;
+            })();
+        }
 
         new Cheat(...args);
     }
@@ -184,7 +186,7 @@ Cheat.build("https://krunker.zip/stable/source", {
             triggerbot: true,
             triggerbotFov: 30,
             triggerbotDelay: 20, // milliseconds
-            smoothSpeed: 12.5
+            smoothSpeed: 15
         };
 
         this.state = { canShoot: true, pressedKeys: new Set(), canDelayShot: true, delayedShots: [], isTriggerbotting: false };
