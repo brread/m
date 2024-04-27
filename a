@@ -224,7 +224,6 @@ Cheat.build("https://krunker.zip/stable/source", {
 
         const width = innerWidth / this.scale;
         const height = innerHeight / this.scale;
-
         
         // auto jump (hold space to bhop)
         
@@ -239,6 +238,8 @@ Cheat.build("https://krunker.zip/stable/source", {
         
         this.controls.target = null;
         
+        const triggerbotState = this.state.isTriggerbotting;
+        this.state.isTriggerbotting = false;
         
         if (input[keyEnum.scope] || this.me.weapon.noAim) {
             // handle any delayed shots
@@ -262,8 +263,6 @@ Cheat.build("https://krunker.zip/stable/source", {
                     input[keyEnum.shoot] = 1;
             }
 
-            const triggerbotState = this.state.isTriggerbotting;
-            this.state.isTriggerbotting = false;
         
             const enemies = this.game.players.list.filter(player => {
                 return (
