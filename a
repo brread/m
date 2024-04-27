@@ -289,7 +289,7 @@ Cheat.build("https://krunker.zip/stable/source", {
                 
                 // triggerbot
 
-                if (distanceToCenter < this.settings.triggerbotFov) break;
+                if (distanceToCenter > this.settings.triggerbotFov) break;
 
                 if (!this.settings.triggerbot) break;
 
