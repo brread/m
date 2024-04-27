@@ -290,7 +290,7 @@ Cheat.build("https://krunker.zip/stable/source", {
 
                 if (this.settings.fovAimbot) {
                     if (distanceToCenter > (this.settings.aimbotFov / this.scale)) {
-                        this.controls.update(50 + 150 / this.settings.smoothSpeed * (1 + Math.log(distanceToCenter / 75)));
+                        this.controls.update(50 + 150 / this.settings.smoothSpeed * (1 + Math.log(distanceToCenter / 100)));
                         
                         break;
                     };
