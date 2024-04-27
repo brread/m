@@ -240,6 +240,7 @@ Cheat.build("https://krunker.zip/stable/source", {
                     input[keyEnum.shoot] = true;
 
                     this.state.delayedShots.shift();
+
                     break;
                 }
             }
@@ -253,7 +254,7 @@ Cheat.build("https://krunker.zip/stable/source", {
             });
 
             // enemies.sort((enemy1, enemy2) => {
-                
+
             // });
 
             for (const enemy of enemies) {
@@ -289,7 +290,7 @@ Cheat.build("https://krunker.zip/stable/source", {
 
                 if (this.settings.fovAimbot) {
                     if (distanceToCenter > (this.settings.aimbotFov / this.scale)) {
-                        this.controls.update(50 + 150 / this.settings.smoothSpeed * (1 + Math.log(distanceToCenter / 50)));
+                        this.controls.update(50 + 150 / this.settings.smoothSpeed * (1 + Math.log(distanceToCenter / 75)));
                         
                         break;
                     };
