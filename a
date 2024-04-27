@@ -309,7 +309,7 @@ Cheat.build("https://krunker.zip/stable/source", {
                     this.state.delayedShots.push(performance.now());
                 }
 
-                setTimeout(() => (this.state.canDelayShot), 0.9 * this.me.weapon.rate * (this.me.isKranked ? this.game.mode.bonuses.firerate : 1));
+                setTimeout(() => (this.state.canDelayShot = true), 0.9 * this.me.weapon.rate * (this.me.isKranked ? this.game.mode.bonuses.firerate : 1));
                 
                 break;
             }
