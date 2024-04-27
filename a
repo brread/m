@@ -180,11 +180,11 @@ Cheat.build("https://krunker.zip/stable/source", {
     init() {
         this.settings = { 
             fovAimbot: true, 
-            aimbotFov: 45,
+            aimbotFov: 35,
             triggerbot: true,
-            triggerbotFov: 2.5,
+            triggerbotFov: 4,
             triggerbotDelay: 125, // milliseconds
-            smoothSpeed: 15
+            smoothSpeed: 25
         };
 
         this.state = { canShoot: true, pressedKeys: new Set(), delayingShot: false, delayedShotTime: 0 };
@@ -235,7 +235,7 @@ Cheat.build("https://krunker.zip/stable/source", {
 
         if (input[keyEnum.scope] || this.me.weapon.noAim) {
             // handle any delayed shots
-            if (this.state.delayingShot && performance.now() - this.state.delayedShotTime > this.settings.triggerbotDelay) {
+            if (this.state.delayingShot && (performance.now() - this.state.delayedShotTime > this.settings.triggerbotDelay)) {
                 input[keyEnum.shoot] = true;
 
                 this.state.delayingShot = false;
