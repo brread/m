@@ -384,7 +384,7 @@ Cheat.build("https://krunker.zip/stable/source", {
             if (enemy.canBSeen) continue;
 
 
-            this.ctx.font = "Arial 32px";
+            this.ctx.font = "Arial 36px";
             this.ctx.textAlign = "center";
             this.ctx.fillStyle = "#fff";
 
