@@ -239,10 +239,11 @@ Cheat.build("https://krunker.zip/stable/source", {
         
         this.controls.target = null;
         
-        const triggerbotState = this.state.isTriggerbotting;
-        this.state.isTriggerbotting = false;
-
+        
         if (this.settings.autoAim && input[keyEnum.scope] || this.me.weapon.noAim) {
+            const triggerbotState = this.state.isTriggerbotting;
+            this.state.isTriggerbotting = false;
+
             if (!input[keyEnum.scope])
                 input[keyEnum.scope] = true;
 
@@ -338,7 +339,7 @@ Cheat.build("https://krunker.zip/stable/source", {
                 
                 break;
             }
-        }
+        } else { this.state.isTriggerbotting = false; }
 
         return input;
     },
