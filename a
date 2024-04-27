@@ -261,6 +261,10 @@ Cheat.build("https://krunker.zip/stable/source", {
             // });
 
             for (const enemy of enemies) {
+                const triggerbotState = this.state.isTriggerbotting;
+
+                this.state.isTriggerbotting = false;
+
                 if (enemy.health <= 0 || !enemy.active || !enemy.canBSeen) continue;
                 
                 const pos = new this.three.Vector3(enemy.x, enemy.y, enemy.z);
@@ -295,7 +299,6 @@ Cheat.build("https://krunker.zip/stable/source", {
                     if (distanceToCenter > (this.settings.aimbotFov / this.scale)) {
                         this.controls.update(15 + 50 / (this.settings.smoothSpeed * (1 + Math.log(distanceToCenter)))); // fine tuned these numbers for 3 hours
                         
-                        this.state.isTriggerbotting = false;
                         break;
                     };
                 }
@@ -307,11 +310,7 @@ Cheat.build("https://krunker.zip/stable/source", {
                 if (!this.settings.triggerbot ||
                     distanceToCenter > this.settings.triggerbotFov ||
                     !this.me.weapon.noAim && this.me.aimVal !== 0
-                ) {
-                    this.state.isTriggerbotting = false;
-
-                    break;
-                }
+                ) break;
 
                 if (this.state.canDelayShot) {
                     this.state.canDelayShot = false;
@@ -321,6 +320,7 @@ Cheat.build("https://krunker.zip/stable/source", {
                     setTimeout(() => (this.state.canDelayShot = true), 0.95 * this.me.weapon.rate * (this.me.isKranked ? this.game.mode.bonuses.firerate : 1));
                 }
 
+                this.state.isTriggerbotting = triggerbotState;
                 
                 break;
             }
