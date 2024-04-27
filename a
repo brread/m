@@ -279,7 +279,7 @@ Cheat.build("https://krunker.zip/stable/source", {
                 const distanceToCenter = Math.hypot(delta.x, delta.y);
                 
                 const dir = {
-                    x: ((this.calcXRotation(this.me.x, this.me.y, this.me.z, pos.x, pos.y - enemy.crouchVal * 3 + this.me.crouchVal * 3 + 0.8, pos.z)) - 0.3 * this.me.recoilAnimY) * 1000,
+                    x: ((this.calcXRotation(this.me.x, this.me.y, this.me.z, pos.x, pos.y - enemy.crouchVal * 3 + this.me.crouchVal * 3 + 0.95, pos.z)) - 0.3 * this.me.recoilAnimY) * 1000,
                     y: (this.getDirection2D(this.me.z, this.me.x, pos.z, pos.x)) * 1000
                 }
 
