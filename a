@@ -180,9 +180,9 @@ Cheat.build("https://krunker.zip/stable/source", {
     init() {
         this.settings = { 
             fovAimbot: true, 
-            aimbotFov: 40,
+            aimbotFov: 50,
             triggerbot: true,
-            triggerbotFov: 6,
+            triggerbotFov: 20,
             triggerbotDelay: 25, // milliseconds
             smoothSpeed: 15
         };
