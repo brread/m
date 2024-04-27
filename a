@@ -183,7 +183,7 @@ Cheat.build("https://krunker.zip/stable/source", {
             aimbotFov: 35,
             triggerbot: true,
             triggerbotFov: 4,
-            triggerbotDelay: 125, // milliseconds
+            triggerbotDelay: 50, // milliseconds
             smoothSpeed: 25
         };
 
