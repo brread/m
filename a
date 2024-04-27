@@ -233,24 +233,25 @@ Cheat.build("https://krunker.zip/stable/source", {
     
     this.controls.target = null;
     
-    const triggerbotState = this.state.isTriggerbotting;
-    this.state.isTriggerbotting = false;
-
+    
     if (input[keyEnum.scope] || this.me.weapon.noAim) {
-            // handle any delayed shots
-            for (const shotTime of this.state.delayedShots) {
-                if (performance.now() - shotTime > this.settings.triggerbotDelay) {
-                    this.state.isTriggerbotting = true;
-
-                    this.state.delayedShots.shift();
-
-                    break;
-                }
+        // handle any delayed shots
+        for (const shotTime of this.state.delayedShots) {
+            if (performance.now() - shotTime > this.settings.triggerbotDelay) {
+                this.state.isTriggerbotting = true;
+                
+                this.state.delayedShots.shift();
+                
+                break;
             }
-
+            }
+            
             if (this.state.isTriggerbotting)
-                input[keyEnum.shoot] = 1;
+            input[keyEnum.shoot] = 1;
 
+            const triggerbotState = this.state.isTriggerbotting;
+            this.state.isTriggerbotting = false;
+        
             const enemies = this.game.players.list.filter(player => {
                 return (
                     !player.isYou &&
@@ -264,7 +265,6 @@ Cheat.build("https://krunker.zip/stable/source", {
             // });
 
             for (const enemy of enemies) {
-
                 if (enemy.health <= 0 || !enemy.active || !enemy.canBSeen) continue;
                 
                 const pos = new this.three.Vector3(enemy.x, enemy.y, enemy.z);
@@ -297,7 +297,7 @@ Cheat.build("https://krunker.zip/stable/source", {
 
                 if (this.settings.fovAimbot) {
                     if (distanceToCenter > (this.settings.aimbotFov / this.scale)) {
-                        this.controls.update(15 + 50 / (this.settings.smoothSpeed * (1 + Math.log(distanceToCenter)))); // fine tuned these numbers for 3 hours
+                        this.controls.update(15 + 40 / (this.settings.smoothSpeed * (1 + Math.log(distanceToCenter * 1.5)))); // fine tuned these numbers for 3 hours
                         
                         break;
                     };
