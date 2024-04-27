@@ -180,11 +180,11 @@ Cheat.build("https://krunker.zip/stable/source", {
     init() {
         this.settings = { 
             fovAimbot: true, 
-            aimbotFov: 45,
+            aimbotFov: 40,
             triggerbot: true,
-            triggerbotFov: 25,
-            triggerbotDelay: 35, // milliseconds
-            smoothSpeed: 15
+            triggerbotFov: 30,
+            triggerbotDelay: 29, // milliseconds
+            smoothSpeed: 12.5
         };
 
         this.state = { canShoot: true, pressedKeys: new Set(), canDelayShot: true, delayedShots: [], isTriggerbotting: false };
@@ -227,13 +227,16 @@ Cheat.build("https://krunker.zip/stable/source", {
             
             if (this.controls.keys[this.controls.binds.jump.val])
             this.controls.didPressed[this.controls.binds.jump.val] = 1;
-        }
-        
-        // fov aimbot
-        
-        this.controls.target = null;
+    }
+    
+    // fov aimbot
+    
+    this.controls.target = null;
+    
+    const triggerbotState = this.state.isTriggerbotting;
+    this.state.isTriggerbotting = false;
 
-        if (input[keyEnum.scope] || this.me.weapon.noAim) {
+    if (input[keyEnum.scope] || this.me.weapon.noAim) {
             // handle any delayed shots
             for (const shotTime of this.state.delayedShots) {
                 if (performance.now() - shotTime > this.settings.triggerbotDelay) {
@@ -261,9 +264,6 @@ Cheat.build("https://krunker.zip/stable/source", {
             // });
 
             for (const enemy of enemies) {
-                const triggerbotState = this.state.isTriggerbotting;
-
-                this.state.isTriggerbotting = false;
 
                 if (enemy.health <= 0 || !enemy.active || !enemy.canBSeen) continue;
                 
