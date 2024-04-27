@@ -181,6 +181,7 @@ function hook(gameSource) {
 Cheat.build("https://krunker.zip/stable/source", {
     init() {
         this.settings = { 
+            autoAim: true,
             fovAimbot: true, 
             aimbotFov: 60,
             drawAimbotFov: true,
@@ -240,8 +241,11 @@ Cheat.build("https://krunker.zip/stable/source", {
         
         const triggerbotState = this.state.isTriggerbotting;
         this.state.isTriggerbotting = false;
-        
-        if (input[keyEnum.scope] || this.me.weapon.noAim) {
+
+        if (this.settings.autoAim && input[keyEnum.scope] || this.me.weapon.noAim) {
+            if (!input[keyEnum.scope])
+                input[keyEnum.scope] = true;
+
             // handle any delayed shots
             for (const shotTime of this.state.delayedShots) {
                 if (performance.now() - shotTime > this.settings.triggerbotDelay) {
